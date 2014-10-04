@@ -25,6 +25,24 @@ html
       div.row.text-center.col-sm-6.col-sm-offset-3
         div.signup
           form(action='/signup', method='post')
+<<<<<<< HEAD
+              div.input-group
+                  span.input-group-addon
+                      span.glyphicon.glyphicon-user
+                  input.name(id="userName" type="text" class='form-control' name='name' placeholder="Please enter a user name")
+              br
+              div.input-group
+                  span.input-group-addon
+                      span.glyphicon.glyphicon-lock
+                  input.password(id="passwd" type="password" class='form-control' name='password' placeholder="Please enter a password")
+              br
+              div.input-group
+                  span.input-group-addon
+                      span.glyphicon.glyphicon-lock
+                  input.password(id="passwdRe" type="password" class='form-control' name='re-password' placeholder="Please re-enter password to confirm")
+              br
+              button(type="submit" class="btn btn-info btn-lg" id="signupBtn") Signup
+=======
             div.form-group
               input.name(type='text' class='form-control' name='name' id="userName" placeholder="Please enter a user name")
             div.form-group
@@ -32,6 +50,7 @@ html
             div.form-group
               input.password(type="password" class="form-control" name="re-password" id="passwdRe" placeholder="Please re-enter password to confirm")
             button(type="submit" class="btn btn-info btn-lg" id="signupBtn") Signup
+>>>>>>> 0cd38623b295c99a9e8eaf467e7bc52f31eff874
         br
         p Go back to login page?
           <a href='/'>Click here</a>

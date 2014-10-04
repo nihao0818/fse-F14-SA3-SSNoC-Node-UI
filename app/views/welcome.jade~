@@ -8,7 +8,6 @@ html
     div.container.text-center
       br
       h3 Welcome to Survivable Social Network on a Chip!!
-<<<<<<< HEAD
       br
 
       font(size='5') Status and Explanation
@@ -34,6 +33,4 @@ html
           td(style= 'text-align : left;') Red
       br
       h3 Simply click the icon and change your status
-=======
->>>>>>> 0cd38623b295c99a9e8eaf467e7bc52f31eff874
       a.btn.btn-info(href='/people') Let's start
