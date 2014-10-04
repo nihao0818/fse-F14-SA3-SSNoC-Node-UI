@@ -19,16 +19,13 @@ module.exports = function(_, io, participants, passport, refreshAllUsers) {
       var user_name = req.session.passport.user.user_name;
       User.getUser(user_name, function(err, user) {
         if (user !== null) {
-<<<<<<< HEAD
+
           res.json(200, {name:user.local.name, status:user.local.status, statusDate:user.local.statusDate});
-=======
-          res.json(200, {name:user.local.name});
->>>>>>> 0cd38623b295c99a9e8eaf467e7bc52f31eff874
         }
       });
     },
 
-<<<<<<< HEAD
+
     updateStatus : function(req, res) {
       console.log("!!!!!!!!!!!!!!!");
       var user_name = req.params.name;
@@ -39,8 +36,6 @@ module.exports = function(_, io, participants, passport, refreshAllUsers) {
       res.redirect('/user');
     },
 
-=======
->>>>>>> 0cd38623b295c99a9e8eaf467e7bc52f31eff874
     postSignup : function(req, res, next) {
       passport.authenticate('local-signup', function(err, user, info) {
         if (err)

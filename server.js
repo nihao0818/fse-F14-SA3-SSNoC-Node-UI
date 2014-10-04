@@ -18,11 +18,9 @@ require('./config/passport')(passport);
 
 app.set("ipaddr", "0.0.0.0");
 
-<<<<<<< HEAD
+
 app.set("port", 9320);
-=======
-app.set("port", 80);
->>>>>>> 0cd38623b295c99a9e8eaf467e7bc52f31eff874
+
 
 app.set("views", __dirname + "/app/views");
 
@@ -44,11 +42,9 @@ app.use(flash());
 User.getAllUsers(function(err, users) {
   if (!err) {
     users.forEach(function(user) {
-<<<<<<< HEAD
+
       participants.all.push({userName : user.local.name, userStatus : user.local.status, statusDate : user.local.statusDate});
-=======
-      participants.all.push({userName : user.local.name});
->>>>>>> 0cd38623b295c99a9e8eaf467e7bc52f31eff874
+
     });
   }
 
