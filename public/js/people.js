@@ -47,7 +47,7 @@ function init() {
       var statusDisp_ele = '<div class="col-xs-6 col-sm-6 col-md-7 col-lg-7 ">'+status_ele+'</strong>'+'<br>'+'<font color="#909090" size="2"><strong>'+statusDate_ele+'</font></strong></div>';
 
 
-      var info_ele = '<div class="row user-row search_item">' + user_ele +statusDisp_ele+dropdown_ele+'</div>';
+      var info_ele = '<div class="row user-row search_item">' + user_ele + statusDisp_ele + dropdown_ele +'</div>';
 
       var detail_ele = '<div class="row user-info ' + name + '"><a class="btn btn-info col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">Wanna do something?</a><hr/></div></div>';
       if (map[name].sId === sessionId || name === my_name) {
@@ -66,9 +66,9 @@ function init() {
         var dropdown_ele = '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".' + userObj.userName + '"><i class="glyphicon glyphicon-chevron-down text-muted"></i></div>';
         var status_ele ='<button class="btn ' +map_status_color[userObj.userStatus] + '">' +'<strong>' + userObj.userStatus + '</strong></button>';
         var statusDate_ele = userObj.statusDate;
-        var statusDisp_ele = '<div class="col-xs-6 col-sm-6 col-md-7 col-lg-7 ">'+status_ele+'<br>'+'<font color="#909090" size="2"><strong>'+statusDate_ele+'</font></strong></div>';
+        var statusDisp_ele = '<div class="col-xs-6 col-sm-6 col-md-7 col-lg-7 ">'+status_ele +'<br>'+'<font color="#909090" size="2"><strong>'+statusDate_ele+'</font></strong></div>';
 
-        var info_ele = '<div class="row user-row search_item">' + user_ele +statusDisp_ele+dropdown_ele +'</div>';
+        var info_ele = '<div class="row user-row search_item">' + user_ele + statusDisp_ele + dropdown_ele +'</div>';
         var detail_ele = '<div class="row user-info ' + userObj.userName + '"><a class="btn btn-info col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">Wanna do something?</a><hr/></div></div>';
         $('#participants_offline').append(info_ele);
         $('#participants_offline').append(detail_ele);

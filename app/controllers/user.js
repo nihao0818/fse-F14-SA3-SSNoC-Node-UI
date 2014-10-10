@@ -33,6 +33,7 @@ module.exports = function(_, io, participants, passport, refreshAllUsers) {
       var statusDate = req.param('statusDate');
       console.log(user_name + user_status);
       User.updateStatus(user_name,user_status,statusDate);
+
       res.redirect('/user');
     },
 
