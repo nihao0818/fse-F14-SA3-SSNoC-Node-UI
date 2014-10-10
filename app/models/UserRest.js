@@ -33,7 +33,6 @@ User.updateStatus = function(user_name, user_status, createdDate) {
       if (err || res.statusCode !== 200){
         console.log("return unsuccessfully!");
         console.log(res.statusCode);
-        console.log(rest_api.update_user_status + user_name);
       }
         console.log("return successfully");
         return;

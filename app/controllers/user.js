@@ -27,11 +27,9 @@ module.exports = function(_, io, participants, passport, refreshAllUsers) {
 
 
     updateStatus : function(req, res) {
-      console.log("!!!!!!!!!!!!!!!");
       var user_name = req.params.name;
       var user_status = req.param('status');
       var statusDate = req.param('statusDate');
-      console.log(user_name + user_status);
       User.updateStatus(user_name,user_status,statusDate);
 
       res.redirect('/user');
