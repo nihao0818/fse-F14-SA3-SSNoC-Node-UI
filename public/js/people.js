@@ -43,6 +43,7 @@ function init() {
       var dropdown_symbol = map[name].sId === sessionId ? '':'<i class="glyphicon glyphicon-chevron-down text-muted"></i>';
       var dropdown_ele = '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".' + name + '">' + dropdown_symbol + '</div>';
       var status_ele = '<button class="btn ' + map_status_color[map[name].status] + '">'+'<strong>' +map[name].status+'</strong>' +'</button>';
+        var statusDate_ele1 = map[name].statusDate ;
       var statusDate_ele = map[name].statusDate ;
       var statusDisp_ele = '<div class="col-xs-6 col-sm-6 col-md-7 col-lg-7 ">'+status_ele+'</strong>'+'<br>'+'<font color="#909090" size="2"><strong>'+statusDate_ele+'</font></strong></div>';
 

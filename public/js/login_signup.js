@@ -14,7 +14,6 @@ function validateUserNameAndPassword() {
   if($('#userName').val().trim() == "") {
     $('#alert').text('Please provide a username to continue');
     $('#alert').show();
-    $('#passport_alert').remove();
     return false;
   }
 

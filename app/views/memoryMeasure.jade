@@ -1,0 +1,55 @@
+doctype html
+html
+    include includes/head.jade
+    script(src='/js/jquery.cookie.js')
+    script(src='/js/underscore.min.js')
+    script(src='/js/measureMemory.js')
+    script(src='js/bootstrap.min.js')
+
+    title SSNoC - Memory Measure
+    body
+        include includes/navbar.jade
+        div.container
+            br
+            h3.text-center
+                | Hello, Monitor
+                br
+                | Welcome to Measure Memory
+            br
+            div.row.row-fluid.text-center.col-sm-6.col-sm-offset-3
+                div.MeasureMemory
+                    a.btn.btn-success.btn-group-lg(id="start",action='/start')
+                        strong Start
+                    | &nbsp;
+                    a.btn.btn-warning.btn-group-lg(id="stop",action='/stop')
+                        strong Stop
+                br
+                div.viewMemoryUsage
+                    a.btn.btn-primary.btn-group-lg(id="view",action='/view')
+                        strong View
+                    | &nbsp;
+                    a.btn.btn-danger.btn-group-lg(id="delete",action='/delete')
+                        strong Delete
+                br
+                div.alert.alert-info#alert
+            br
+            br
+        div.well.collapse.col-sm-6.col-sm-offset-3#table
+            table.table.table-hover.table-bordered
+                thead
+                    tr
+                        th Time
+                        th Used Volatile
+                        th Remaining Volatile
+                        th Used Persistent
+                        th Remaining Persistent
+                tbody
+
+
+        br
+        br
+        div.row.text-center.col-sm-6.col-sm-offset-3
+            p Need to go back?
+                a(href='/people') Return
+        br
+        br

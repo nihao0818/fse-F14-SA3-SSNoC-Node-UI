@@ -1,8 +1,10 @@
 var User = require('./models/UserRest');
+var memoryMonitor = require('./models/MemoryMonitorRest');
 
 module.exports = function(app, _, io, participants, passport) {
   var user_controller = require('./controllers/user')(_, io, participants, passport, refreshAllUsers);
   var people_controller = require('./controllers/people')(_, io, participants, passport);
+  var memory_controller = require('./controllers/Memory')(_,io,participants,passport);
 
   app.get("/", user_controller.getLogin);
 
@@ -19,6 +21,18 @@ module.exports = function(app, _, io, participants, passport) {
 
 
   app.get("/logout", isLoggedIn, user_controller.getLogout);
+
+  app.get("/measureMemory", isLoggedIn, memory_controller.getMemoryMeasurePage);
+
+  app.post("/start",isLoggedIn,memory_controller.setStartMemoryMonitor);
+
+  app.post("/stop",isLoggedIn,memory_controller.setStopMemoryMonitor);
+
+  app.delete("/delete",isLoggedIn,memory_controller.setDeleteMemoryHistory);
+
+  app.get("/getMeasureMemoryStats",isLoggedIn, memory_controller.getMeasureMemoryStats);
+
+
   app.post("/login", passport.authenticate('local-login', {
     successRedirect : '/people',
     failureRedirect : '/',
@@ -26,6 +40,7 @@ module.exports = function(app, _, io, participants, passport) {
   }));
 
   app.get("/people", isLoggedIn, people_controller.getPeople);
+
 };
 
 function isLoggedIn(req, res, next) {
@@ -45,4 +60,5 @@ function refreshAllUsers(participants, callback) {
     });
     callback();
   });
+
 }

@@ -1,4 +1,4 @@
-module.exports = function(_, io, participants) {
+module.exports = function(_, io, participants, test) {
   io.on("connection", function(socket){
     socket.on("newUser", function(data) {
 
@@ -22,6 +22,15 @@ module.exports = function(_, io, participants) {
       delete participants.online[socket.id];
       io.sockets.emit("userDisconnected", {id: socket.id, sender:"system", participants:participants});
     });
+
+      socket.on("getTestStatus", function() {
+          io.sockets.emit("testStatus", {test: test});
+      });
+
+      socket.on("updateTestStatus", function(data) {
+          test = data.test;
+          io.sockets.emit("testStatus", {test: test});
+      });
 
   });
 };

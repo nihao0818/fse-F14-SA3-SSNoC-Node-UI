@@ -6,6 +6,7 @@ module.exports = {
   'get_user' : host_url + '/user/',
 
   'post_new_user' : host_url + '/user/signup',
-  'update_user_status' : host_url + '/status/'
+  'update_user_status' : host_url + '/status/',
+  'memory_monitor' : host_url + '/memory'
 
 };
