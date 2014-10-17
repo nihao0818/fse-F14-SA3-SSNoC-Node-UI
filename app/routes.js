@@ -1,10 +1,13 @@
 var User = require('./models/UserRest');
 var memoryMonitor = require('./models/MemoryMonitorRest');
+var publicWall=require('./models/MessageWallRest');
 
 module.exports = function(app, _, io, participants, passport) {
   var user_controller = require('./controllers/user')(_, io, participants, passport, refreshAllUsers);
   var people_controller = require('./controllers/people')(_, io, participants, passport);
   var memory_controller = require('./controllers/Memory')(_,io,participants,passport);
+  var wall_controller = require('./controllers/messageWallC')(_,io,passport);
+
 
   app.get("/", user_controller.getLogin);
 
@@ -22,6 +25,10 @@ module.exports = function(app, _, io, participants, passport) {
 
   app.get("/logout", isLoggedIn, user_controller.getLogout);
 
+  app.get("/messageWall", isLoggedIn,wall_controller.getPublicWallPage);
+
+  app.post("/sendWallMessage",isLoggedIn,wall_controller.sendWallMessage);
+
   app.get("/measureMemory", isLoggedIn, memory_controller.getMemoryMeasurePage);
 
   app.post("/start",isLoggedIn,memory_controller.setStartMemoryMonitor);
@@ -31,7 +38,6 @@ module.exports = function(app, _, io, participants, passport) {
   app.delete("/delete",isLoggedIn,memory_controller.setDeleteMemoryHistory);
 
   app.get("/getMeasureMemoryStats",isLoggedIn, memory_controller.getMeasureMemoryStats);
-
 
   app.post("/login", passport.authenticate('local-login', {
     successRedirect : '/people',
@@ -48,7 +54,7 @@ function isLoggedIn(req, res, next) {
     return next();
 
   res.redirect('/');
-}
+};
 
 function refreshAllUsers(participants, callback) {
   participants.all = [];

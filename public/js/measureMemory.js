@@ -8,10 +8,6 @@ function init() {
 
     var test;
 
-
-
-
-
     function startMeasureMemory() {
         $.ajax({
             url: '/start',

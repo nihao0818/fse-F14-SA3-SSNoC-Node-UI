@@ -1,3 +1,5 @@
+var publicWall=require('./models/MessageWallRest');
+
 module.exports = function(_, io, participants, test) {
   io.on("connection", function(socket){
     socket.on("newUser", function(data) {
@@ -16,6 +18,20 @@ module.exports = function(_, io, participants, test) {
            }
        }
       io.sockets.emit("newConnection", {participants: participants});
+        publicWall.getWallMessages(function(err,results){
+            if(err){
+                console.log("Error getting Wall Messages: "+err)
+            }
+            io.sockets.emit("publicWallMessages",{messages:results});
+        });
+    });
+
+
+      publicWall.getWallMessages(function(err,results){
+        if(err){
+              console.log("Error getting Wall Messages: "+err)
+          }
+          io.sockets.emit("publicWallMessages",{messages:results});
     });
 
     socket.on("disconnect", function() {

@@ -1,12 +1,10 @@
 function init() {
   var serverBaseUrl = document.domain;
-
   var socket = io.connect(serverBaseUrl);
 
   var sessionId = '';
 
   window.my_name = '';
-
 
   var my_status = '';
 
@@ -127,7 +125,7 @@ function renderStatus(){
 
   var statusDate_ele ='<div id="my_statusDate">' +'<strong>'+'<font color="#909090" size="2">'+my_statusDate+'</font>'+'</strong>'+'</div>';
 
-  var statusDisp_ele = '<div class="col-xs-7 col-sm-7 col-md-8 col-lg-8 ">'+'<strong>'+status_ele+'</strong>'+'<br>'+statusDate_ele+ '</div>';
+  var statusDisp_ele = '<div class="col-xs-6 col-sm-6 col-md-7 col-lg-7 ">'+'<strong>'+status_ele+'</strong>'+'<br>'+statusDate_ele+ '</div>';
 
   $("#myself").find(".row").append(statusDisp_ele);
 

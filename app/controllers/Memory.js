@@ -8,7 +8,7 @@ module.exports = function(_, io, passport) {
     return{
 
         getMemoryMeasurePage : function(req, res) {
-            res.render('memoryMeasure', {title: "Hello " + " !!"} );
+            res.render('memoryMeasure', {title: "Hello " +req.session.passport.user.user_name+" !!"} );
         },
 
         setStartMemoryMonitor : function(req,res){
