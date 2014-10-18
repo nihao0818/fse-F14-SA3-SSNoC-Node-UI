@@ -21,9 +21,17 @@ module.exports = function(_, io, passport) {
         },
 */
         setStartSSNanalysis : function(req,res){
+            //res.redirect('/ssn');
             console.info('inside setStartSSNanalysis.js-------------------');
+            var startTime = "1900-01-01";
+            if (req.param('startTime')){
+                var startTime = req.param('startTime');  //cite parameter here-----
+            }
 
-            var startTime = req.param('startTime');  //cite parameter here-----
+
+
+
+
 
             console.info(startTime);
 
@@ -38,6 +46,8 @@ module.exports = function(_, io, passport) {
                     res.json(200,results);
                 }
             });
+
+
         }
 
 

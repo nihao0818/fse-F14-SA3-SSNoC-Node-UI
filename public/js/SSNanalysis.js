@@ -6,7 +6,7 @@ function init() {
 
     var socket = io.connect(serverBaseUrl);
 
-    var test;
+    //var test;
 
     var sTime = $('#startTime').val();
     var eTime = $('#endTime').val();
