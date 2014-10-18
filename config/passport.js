@@ -28,24 +28,36 @@ module.exports = function(passport) {
     });
   }));
   passport.use('local-login', new LocalStrategy({
-    usernameField : 'name',
-    passwordField : 'password',
-    passReqToCallback : true
-  }, function(req, name, password, done) {
-    User.getUser(name, function(err, user) {
-      if (err){
-        return done(err);
-      }
-      if (!user){
-        return done(null, false, req.flash('loginMessage', 'User name not found'));
-      }
-      user.isValidPassword(password, function(isSuccessful){
-        if (isSuccessful){
-          return done(null, user);
-        } else {
-          return done(null, false, req.flash('loginMessage', 'Oops! Wrong password'));
-        }
-      });
-    });
-  }));
+        usernameField : 'name',
+        passwordField : 'password',
+        passReqToCallback : true
+    }, function(req, name, password, done) {
+        User.getUser(name, function(err, user) {
+            if (err){
+                return done(err);
+            }
+            if (!user){
+                return done(null, false, req.flash('loginMessage', 'User name not found'));
+            }
+            user.isValidPassword(password, function(isSuccessful){
+                if (isSuccessful){
+                    return done(null, user);
+                } else {
+                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password'));
+                }
+            });
+        });
+    }));
+
+
+    passport.use('local-memory', new LocalStrategy({
+        usernameField : 'name',
+        passReqToCallback : true
+    }, function(req, name, done) {
+        return done(null,true);
+    }));
+
+
+
+
 };

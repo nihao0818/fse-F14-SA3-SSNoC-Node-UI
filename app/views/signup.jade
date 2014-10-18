@@ -24,14 +24,49 @@ html
       br
       div.row.text-center.col-sm-6.col-sm-offset-3
         div.signup
+<<<<<<< HEAD
           form(action='/signup', method='post')
-            div.form-group
-              input.name(type='text' class='form-control' name='name' id="userName" placeholder="Please enter a user name")
-            div.form-group
-              input.password(type="password" class="form-control" name="password" id="passwd" placeholder="Please enter a password")
-            div.form-group
-              input.password(type="password" class="form-control" name="re-password" id="passwdRe" placeholder="Please re-enter password to confirm")
-            button(type="submit" class="btn btn-info btn-lg" id="signupBtn") Signup
+
+              div.input-group
+                  span.input-group-addon
+                      span.glyphicon.glyphicon-user
+                  input.name(id="userName" type="text" class='form-control' name='name' placeholder="Please enter a user name")
+              br
+              div.input-group
+                  span.input-group-addon
+                      span.glyphicon.glyphicon-lock
+                  input.password(id="passwd" type="password" class='form-control' name='password' placeholder="Please enter a password")
+              br
+              div.input-group
+                  span.input-group-addon
+                      span.glyphicon.glyphicon-lock
+                  input.password(id="passwdRe" type="password" class='form-control' name='re-password' placeholder="Please re-enter password to confirm")
+              br
+              button(type="submit" class="btn btn-info btn-lg" id="signupBtn") Signup
+=======
+            div.well
+              form(action='/signup', method='post')
+                  div.input-group
+                      span.input-group-addon
+                          span.glyphicon.glyphicon-user
+                      input.name(id="userName" type="text" class='form-control' name='name' placeholder="Please enter a user name")
+                  br
+                  div.input-group
+                      span.input-group-addon
+                          span.glyphicon.glyphicon-lock
+                      input.password(id="passwd" type="password" class='form-control' name='password' placeholder="Please enter a password")
+                  br
+                  div.input-group
+                      span.input-group-addon
+                          span.glyphicon.glyphicon-lock
+                      input.password(id="passwdRe" type="password" class='form-control' name='re-password' placeholder="Please re-enter password to confirm")
+                  br
+                  button(type="submit" class="btn btn-info" id="signupBtn")
+                    Strong Signup
+>>>>>>> 95204d3af0f4f065bfe5299b1091d051158fcb1d
+
         br
-        p Go back to login page?
-          <a href='/'>Click here</a>
+        div.row.text-center.col-sm-6.col-sm-offset-3
+            p Goback to login page?
+                a(href='/')
+                    Strong  Click here

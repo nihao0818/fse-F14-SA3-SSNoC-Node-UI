@@ -12,13 +12,17 @@ var participants = {
   all : []
 };
 
+var test = 0;
+
 process.chdir(__dirname);
 
 require('./config/passport')(passport);
 
 app.set("ipaddr", "0.0.0.0");
 
-app.set("port", 80);
+
+app.set("port", 9320);
+
 
 app.set("views", __dirname + "/app/views");
 
@@ -40,12 +44,12 @@ app.use(flash());
 User.getAllUsers(function(err, users) {
   if (!err) {
     users.forEach(function(user) {
-      participants.all.push({userName : user.local.name});
+      participants.all.push({userName : user.local.name, userStatus : user.local.status, statusDate : user.local.statusDate});
     });
   }
 
   require('./app/routes')(app, _, io, participants, passport);
-  require('./app/socket')(_, io, participants);
+  require('./app/socket')(_, io, participants, test);
 });
 
 http.listen(app.get("port"), app.get("ipaddr"), function() {

@@ -19,9 +19,20 @@ module.exports = function(_, io, participants, passport, refreshAllUsers) {
       var user_name = req.session.passport.user.user_name;
       User.getUser(user_name, function(err, user) {
         if (user !== null) {
-          res.json(200, {name:user.local.name});
+
+          res.json(200, {name:user.local.name, status:user.local.status, statusDate:user.local.statusDate});
         }
       });
+    },
+
+
+    updateStatus : function(req, res) {
+      var user_name = req.params.name;
+      var user_status = req.param('status');
+      var statusDate = req.param('statusDate');
+      User.updateStatus(user_name,user_status,statusDate);
+
+      res.redirect('/user');
     },
 
     postSignup : function(req, res, next) {
@@ -42,5 +53,6 @@ module.exports = function(_, io, participants, passport, refreshAllUsers) {
     getWelcome : function(req, res) {
       res.render('welcome', {title: "Hello " + req.session.passport.user.user_name + " !!"} );
     }
+
   };
 };

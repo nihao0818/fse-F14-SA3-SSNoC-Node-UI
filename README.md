@@ -23,9 +23,15 @@ Installation
 ```sh
 Install Node.js from http://nodejs.org/
 git clone https://github.com/cmusv-fse/SSNoC-Node-UI
+<<<<<<< HEAD
+npm install -g express
+npm install
+npm install -g supervisor
+=======
 sudo npm install -g express
 sudo npm install
 sudo npm install -g supervisor
+>>>>>>> 0cd38623b295c99a9e8eaf467e7bc52f31eff874
 ```
 Run Server
 --------------

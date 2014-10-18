@@ -1,0 +1,65 @@
+doctype html
+html
+    include includes/head.jade
+    script(src='/js/jquery.cookie.js')
+
+    script(src='/js/underscore.min.js')
+    script(src='/js/SSnanalysis.js')
+    script(src='js/bootstrap.min.js')
+
+    title SSNoC - SSN Analysis
+
+    body
+        include includes/navbar.jade
+        div.container
+            br
+
+            h3.text-center
+                | Hello, Monitor
+                br
+                | Welcome to SSN_Analysis
+            br
+            form.SSN
+                div.input-group
+                    span.input-group-addon
+                        span.glyphicon.glyphicon-star
+                    input.name.form-control(id="startTime" type="text" class='form-control' name='start_Time' placeholder="Please enter startTime:eg..20141001000000")
+                br
+
+                div.input-group
+                    span.input-group-addon
+                        span.glyphicon.glyphicon-star
+                    input.password.form-control(id="endTime" type="text" class='form-control' name='end_Time' placeholder="Please enter endTime:eg..20141031000000")
+                br
+
+                div.row.row-fluid.text-center.col-sm-6.col-sm-offset-3
+                    div.SSNanalysis
+                        a.btn.btn-success.btn-group-lg(id="ssn",action='/ssn')
+                            strong SSN_analysis
+                        | &nbsp;
+                        //a.btn.btn-warning.btn-group-lg(id="stop",action='/stop')
+                            strong Stop
+                br
+
+                br
+
+                div.alert.alert-info#alert
+            br
+            br
+        div.well.collapse.col-sm-6.col-sm-offset-3#table
+            table.table.table-hover.table-bordered
+                thead
+                    tr
+                        th Clusters
+
+
+                tbody
+                    br
+        br
+        div.row.text-center.col-sm-6.col-sm-offset-3
+            p Need to go back?
+                a(href='/people') Return
+        br
+        br
+                                                    
+
