@@ -6,6 +6,7 @@ function init() {
 
     var socket = io.connect(serverBaseUrl);
 
+
     $('#ssn').click(function () {
         console.info("in abcdef");
         //location.reload();
@@ -13,6 +14,7 @@ function init() {
             url: '/ssn/',
             type: 'GET',
             dataType: 'json',
+
             data : {startTime: ($('#startTime').val() == "" ? "infinite" : $('#startTime').val()), endTime: ($('#endTime').val() == "" ? "infinite" : $('#endTime').val())}
         }).done(function (data) {
             $('#table').show();
@@ -41,6 +43,7 @@ function init() {
     socket.on('testStatus', function (data) {
         test = data.test;
         if (test == 0) {
+
             $("#alert").html("Type in and Click Button Above\nInfinite Time Duration by Default");
         }
         else {

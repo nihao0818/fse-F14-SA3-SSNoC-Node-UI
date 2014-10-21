@@ -2,6 +2,7 @@
  * Created by Admin on 2014/10/14.
  */
 
+
 var SSNanalysis = require('../models/SSNRest')
 
 module.exports = function(_, io, passport) {
@@ -22,6 +23,7 @@ module.exports = function(_, io, passport) {
 */
         setStartSSNanalysis : function(req,res){
             //res.redirect('/ssn');
+
             console.info('inside setStartSSNanalysis.js');
 
 
@@ -50,6 +52,7 @@ module.exports = function(_, io, passport) {
                     console.info('errrrrrrrrrrrrrrrr');
                 }
                 if(results){
+
                     console.info('Can get results');
                     res.json(200,results);
                 }
