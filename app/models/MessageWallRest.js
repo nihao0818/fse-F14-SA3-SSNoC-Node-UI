@@ -5,17 +5,25 @@ var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var rest_api = require('../../config/rest_api')
 
-function wallMessages(){
+function wallMessages(){}
 
-}
-    wallMessages.sendWallMessage = function(user_name,content,postedAt){
-        request.post({url:rest_api.message + user_name, body: {content:content,postedAt:postedAt}, json:true},function(err,res,body) {
-            if (err || res.statusCode !== 200){
-                console.log("return unsuccessfully!");
-                console.log(res.statusCode);
+        wallMessages.sendWallMessage = function(user_name,content,callback){
+        var options = {
+            url : rest_api.message + user_name,
+            body : {content:content},
+            json: true
+        };
+        request.post(options,function(err,res) {
+            if (res.body) {
+                console.log(res.body);
+                callback(res.body);
+                return;
             }
-            else{console.log("return successfully");}
-            return;
+            else {
+                console.log(res.body);
+                callback(res.body);
+                return;
+            }
         });
 
     };

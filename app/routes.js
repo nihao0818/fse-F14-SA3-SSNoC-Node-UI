@@ -8,10 +8,12 @@ module.exports = function(app, _, io, participants, passport) {
   var user_controller = require('./controllers/user')(_, io, participants, passport, refreshAllUsers);
   var people_controller = require('./controllers/people')(_, io, participants, passport);
   var memory_controller = require('./controllers/Memory')(_,io,participants,passport);
+  var performance_controller = require('./controllers/performance')(_,io,participants,passport);
 
-    var SSN_controller = require('./controllers/SSN')(_,io,participants,passport);
+  var SSN_controller = require('./controllers/SSN')(_,io,participants,passport);
 
   var wall_controller = require('./controllers/messageWallC')(_,io,passport);
+  var ann_controller = require('./controllers/announcementsC')(_,io,passport);
 
 
 
@@ -31,12 +33,21 @@ module.exports = function(app, _, io, participants, passport) {
 
   app.get("/logout", isLoggedIn, user_controller.getLogout);
 
-
-
   app.get("/messageWall", isLoggedIn,wall_controller.getPublicWallPage);
 
   app.post("/sendWallMessage",isLoggedIn,wall_controller.sendWallMessage);
 
+  app.get("/getMessageWall",wall_controller.getPublicWallPageInfo);
+
+  app.post("/sendTestWallMessage",wall_controller.sendTestWallMessage);
+
+  app.get("/measurePerformance", isLoggedIn, performance_controller.getPerformanceMeasurePage);
+
+  app.post("/setup",isLoggedIn,performance_controller.setUpPerformanceMonitor);
+
+  app.post("/teardown",performance_controller.tearDownPerformanceMonitor);
+
+  app.get("/getMeasurePerformanceStats",performance_controller.viewPerformanceMonitor);
 
   app.get("/measureMemory", isLoggedIn, memory_controller.getMemoryMeasurePage);
 
@@ -53,6 +64,12 @@ module.exports = function(app, _, io, participants, passport) {
 
   app.get("/ssn",isLoggedIn,SSN_controller.setStartSSNanalysis);
 
+
+  app.get("/announcements", isLoggedIn,ann_controller.getAnnoucementsPage);
+
+  app.post("/postAnnouncement",isLoggedIn,ann_controller.sendAnnouncement);
+
+  app.get("/");
 
 
   app.post("/login", passport.authenticate('local-login', {

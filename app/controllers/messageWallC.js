@@ -10,20 +10,29 @@ module.exports = function(_,io,participants,passport){
             res.render('messageWall', {title: "Hello " +req.session.passport.user.user_name+" !!"} );
         },
 
+        getPublicWallPageInfo : function(req,res){
+            messageWallR.getWallMessages(function(err,body){
+                res.json(200, {});
+            });
+        },
+
        sendWallMessage : function(req,res){
             var user_name = req.session.passport.user.user_name;
             var content = req.body.message;
-            console.log(content);
-            var d = new Date();
-            var minute = d.getMinutes();
-            var hour = d.getHours();
-            var date = d.getDate();
-            var month = d.getMonth()+1;
-            var year = d.getFullYear();
-            var postedAt =  year + '-' + (month < 10 ? '0' + month : month) + '-' + (date < 10 ? '0' + date : date) + ' ' + (hour < 10 ? '0' + hour : hour) + ':' + (minute < 10 ? '0' + minute : minute);
-            messageWallR.sendWallMessage(user_name,content,postedAt);
-            res.render('messageWall', {message: req.flash('Message updated on Wall')} );
+            messageWallR.sendWallMessage(user_name,content,function(body){
+                if(body=="wall message saved"){res.render('messageWall', {message: req.flash('Message updated on Wall')} );}
+                else{console.log(body);}
+            });
+       },
 
+        sendTestWallMessage : function (req,res){
+            var user_name = "tester";
+            var content = req.body.message;
+            messageWallR.sendWallMessage(user_name,content,function(body){
+                if(body){
+                    res.json(body);
+                }
+            });
+        }
     }
-    };
 };

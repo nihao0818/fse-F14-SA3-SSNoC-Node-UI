@@ -1,6 +1,8 @@
 
 var publicWall=require('./models/MessageWallRest');
 
+var announcements=require('./models/announcementsRest');
+
 
 module.exports = function(_, io, participants, test) {
   io.on("connection", function(socket){
@@ -31,10 +33,18 @@ module.exports = function(_, io, participants, test) {
 
       publicWall.getWallMessages(function(err,results){
         if(err){
-              console.log("Error getting Wall Messages: "+err)
+              console.log("Error getting Wall Messages: "+err);
           }
           io.sockets.emit("publicWallMessages",{messages:results});
     });
+
+
+      announcements.getAnnouncements(function(err,results){
+          if(err){
+              console.log("Error getting Wall Messages: "+err);
+          }
+          io.sockets.emit("announcements",{messages:results});
+      })
 
     socket.on("disconnect", function() {
       delete participants.online[socket.id];
@@ -49,6 +59,10 @@ module.exports = function(_, io, participants, test) {
           test = data.test;
           io.sockets.emit("testStatus", {test: test});
       });
+
+      // socket.on("startPerformanceMeasure", function(data) {
+      //     var duration = data.duration;
+      // });
 
   });
 };

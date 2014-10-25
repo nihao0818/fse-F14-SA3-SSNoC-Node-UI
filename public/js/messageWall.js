@@ -6,6 +6,7 @@ function init(){
     var socket = io.connect(serverBaseUrl);
 
         function updatePublicWall(data){
+            $('#messageWall').html('');
             for(var i=0; i<data.length; i++) {
                 var name = data[i].author;
                 var content = data[i].content;

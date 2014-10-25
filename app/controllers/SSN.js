@@ -13,16 +13,7 @@ module.exports = function(_, io, passport) {
             res.render('SSNanalysis', {title: "Hello " + " !!"} );
         },
 
-
-/*
         setStartSSNanalysis : function(req,res){
-            console.info("inside setStartSSNanalysis.js");
-            SSNanalysis.startSSNanalysis();
-            res.render('SSNanalysis', {message: req.flash('SSN Analysis Started...')} );
-        },
-*/
-        setStartSSNanalysis : function(req,res){
-            //res.redirect('/ssn');
 
             console.info('inside setStartSSNanalysis.js');
 

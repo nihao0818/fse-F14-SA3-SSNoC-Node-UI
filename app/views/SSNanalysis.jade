@@ -2,11 +2,7 @@ doctype html
 html
     include includes/head.jade
     script(src='/js/jquery.cookie.js')
-
-    script(src='/js/underscore.min.js')
     script(src='/js/SSnanalysis.js')
-    script(src='js/bootstrap.min.js')
-
     title SSNoC - SSN Analysis
 
     body
@@ -15,9 +11,9 @@ html
             br
 
             h3.text-center
-                | Hello, Monitor
+                | Hello!! Coordinator
                 br
-                | Welcome to SSN_Analysis
+                | Welcome to Survivable Social Network Analysis
             br
             form.SSN
 
@@ -41,9 +37,7 @@ html
                         //a.btn.btn-warning.btn-group-lg(id="stop",action='/stop')
                             strong Stop
                 br
-
                 br
-
 
         div.alert.alert-info.text-center.col-sm-2.col-sm-offset-5#alert
         br
@@ -55,12 +49,9 @@ html
                         th.text-center
                             font(size = '6') Clusters
                 tbody
-                    br
+        br
         br
         div.row.text-center.col-sm-6.col-sm-offset-3
-            p Need to go back?
-                a(href='/people') Return
-        br
-        br
-                                                    
-
+            p Need to go back to directory?
+                a(href='/people')
+                    Strong  Return

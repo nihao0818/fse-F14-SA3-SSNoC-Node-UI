@@ -7,12 +7,14 @@ module.exports = {
 
   'post_new_user' : host_url + '/user/signup',
   'update_user_status' : host_url + '/status/',
+
   'memory_monitor' : host_url + '/memory',
+
+  'performance_monitor' : host_url + '/performance',
 
   'SSN_analysis' : host_url + '/usergroups/unconnected/',
 
   'message' : host_url + '/message/',
-  'messages' : host_url + '/messages'
-
-
+  'messages' : host_url + '/messages',
+  'announcement' : host_url + '/announcement/'
 };
