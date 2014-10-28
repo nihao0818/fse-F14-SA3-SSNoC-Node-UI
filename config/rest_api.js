@@ -15,6 +15,5 @@ module.exports = {
   'SSN_analysis' : host_url + '/usergroups/unconnected/',
 
   'message' : host_url + '/message/',
-  'messages' : host_url + '/messages',
-  'announcement' : host_url + '/announcement/'
+  'messages' : host_url + '/messages'
 };
