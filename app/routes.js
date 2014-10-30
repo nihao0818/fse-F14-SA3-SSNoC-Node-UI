@@ -15,7 +15,7 @@ module.exports = function(app, _, io, participants, passport) {
   var wall_controller = require('./controllers/messageWallC')(_,io,passport);
   var ann_controller = require('./controllers/announcementsC')(_,io,passport);
 
-
+  var search_controller = require('./controllers/search')(_,io,passport,participants);
 
   app.get("/", user_controller.getLogin);
 
@@ -68,6 +68,10 @@ module.exports = function(app, _, io, participants, passport) {
   app.get("/announcements", isLoggedIn,ann_controller.getAnnoucementsPage);
 
   app.post("/postAnnouncement",isLoggedIn,ann_controller.sendAnnouncement);
+
+  app.get("/search", isLoggedIn,search_controller.getSearchPage);
+
+  app.post("/search", isLoggedIn,search_controller.sendSearchQuery);
 
   app.get("/");
 

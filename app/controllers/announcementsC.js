@@ -9,13 +9,13 @@ module.exports = function(_,io,passport) {
     return{
 
         getAnnoucementsPage : function(req,res){
-            res.render('announcements',{title:"Hello "+req.session.passport.user.user_name+" !!"});
+            res.render('Announcements',{title:"Hello "+req.session.passport.user.user_name+" !!"});
         },
         sendAnnouncement : function (req, res) {
             var user_name = req.session.passport.user.user_name;
             var content = req.body.announcement;
             annRest.sendAnnouncement(user_name,content, function(body) {
-                if(body=="Announcement saved"){res.render('announcements', {message: req.flash('Announcement saved')} );}
+                if(body=="Announcement saved"){res.render('Announcements', {message: req.flash('Announcement saved')} );}
                 else{console.log(body);}
             });
         }
