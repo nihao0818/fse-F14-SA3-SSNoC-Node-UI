@@ -14,6 +14,11 @@ function wallMessages(){}
             json: true
         };
         request.post(options,function(err,res) {
+            if (err){
+                console.log(err);
+                callback(err);
+                return;
+            }
             if (res.body) {
                 console.log(res.body);
                 callback(res.body);

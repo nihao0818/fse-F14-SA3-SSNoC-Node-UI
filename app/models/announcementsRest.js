@@ -7,28 +7,33 @@ var rest_api = require('../../config/rest_api')
 
 function announcements(){}
 
-    announcements.sendAnnouncement = function(user_name,content,title,callback){
+    announcements.sendAnnouncement = function(user_name,content,callback){
       var options={
-          url : rest_api.announcement + user_name,
-          body : {content:content, title:title},
+          url : rest_api.message +'announcement/'+ user_name,
+          body : {content:content},
           json : true
       };
         request.post(options, function (err, res) {
-            if(res==201){
-                return;
-            }else{
-                callback(res.statusCode);
+            if (err){
+                console.log(err);
+                callback(err);
                 return;
             }
-            if(err){
-                callback(err.statusCode);
+            if (res.body) {
+                console.log(res.body);
+                callback(res.body);
+                return;
+            }
+            else {
+                console.log(res.body);
+                callback(res.body);
                 return;
             }
         });
     };
 
     announcements.getAnnouncements = function(callback){
-      request(rest_api.announcement,{json:true}, function (err, res, body) {
+      request(rest_api.messages+'/announcement',{json:true}, function (err, res, body) {
             if (err){
                 callback(err,res);
                 return;

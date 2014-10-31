@@ -16,5 +16,6 @@ module.exports = {
 
   'message' : host_url + '/message/',
   'messages' : host_url + '/messages',
-  'announcement' : host_url + '/announcement/'
+
+  'search' : host_url + '/search/'
 };

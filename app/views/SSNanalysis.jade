@@ -2,53 +2,44 @@ doctype html
 html
     include includes/head.jade
     script(src='/js/jquery.cookie.js')
-    script(src='/js/SSnanalysis.js')
+    script(src='/js/SSNanalysis.js')
     title SSNoC - SSN Analysis
-
     body
         include includes/navbar.jade
         div.container
             br
-
             h3.text-center
                 | Hello!! Coordinator
                 br
                 | Welcome to Survivable Social Network Analysis
             br
-            form.SSN
-
-                div.input-group.col-sm-4.col-sm-offset-4
+        div.container
+            div.row.row-fluid.text-center.col-sm-6.col-sm-offset-3
+                div.input-group
                     span.input-group-addon
                         span.glyphicon.glyphicon-star
-                    input.name.form-control(id="startTime" type="text" class='form-control' name='start_Time' placeholder="Please enter startTime:eg..yyyy-mm-dd hh:mm")
+                    input.startTime.form-control(id="startTime" type="text" class='form-control' name='start_Time' placeholder="Please enter startTime:eg..yyyy-mm-dd hh:mm")
                 br
-
-                div.input-group.col-sm-4.col-sm-offset-4
+                div.input-group
                     span.input-group-addon
                         span.glyphicon.glyphicon-star
-                    input.password.form-control(id="endTime" type="text" class='form-control' name='end_Time' placeholder="Please enter endTime:eg..yyyy-mm-dd hh:mm")
+                    input.endTime.form-control(id="endTime" type="text" class='form-control' name='end_Time' placeholder="Please enter endTime:eg..yyyy-mm-dd hh:mm")
                 br
-
-                div.row.row-fluid.text-center.col-sm-6.col-sm-offset-3
-                    div.SSNanalysis
-                        a.btn.btn-success.btn-group-lg(id="ssn",action='/ssn')
-                            strong SSN_analysis
-                        | &nbsp;
-                        //a.btn.btn-warning.btn-group-lg(id="stop",action='/stop')
-                            strong Stop
+                button.btn.btn-success(id="ssn",action='/ssn', type="button")
+                    strong SSN_analysis
                 br
                 br
-
-        div.alert.alert-info.text-center.col-sm-2.col-sm-offset-5#alert
+            div.row.row-fluid.text-center.col-sm-6.col-sm-offset-3
+                div.alert.alert-info#alert
         br
-        br
-        div.well.collapse.col-sm-2.col-sm-offset-5#table
-            table.table.table-hover.table-bordered.text-center
-                thead
-                    tr
-                        th.text-center
-                            font(size = '6') Clusters
-                tbody
+        div.container.container-fluid
+            div.well.collapse.col-sm-2.col-sm-offset-5#table
+                table.table.table-hover.table-bordered.text-center
+                    thead
+                        tr
+                            th.text-center
+                                font(size = '6') Clusters
+                    tbody
         br
         br
         div.row.text-center.col-sm-6.col-sm-offset-3

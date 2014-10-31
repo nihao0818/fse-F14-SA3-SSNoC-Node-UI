@@ -18,11 +18,11 @@ nav.navbar.navbar-default.navbar-fixed-top(role="navigation")#top-navbar
         a(href="/messageWall")
             span.glyphicon.glyphicon-globe
             Strong  Public Wall
-
-      //li
-        a.dropdown.dropdown-toggle(data-toggle="dropdown")
+      li
+        a(class="btn dropdown-toggle" data-toggle="dropdown" type="button" )
             span.glyphicon.glyphicon-list
-            Strong &nbsp;Analysis
+            font(size ="4")
+                Strong &nbsp;Analysis
           ul.dropdown-menu.list-inline
             li
               a(href="/SSN_Analysis")
@@ -41,6 +41,12 @@ nav.navbar.navbar-default.navbar-fixed-top(role="navigation")#top-navbar
         a(href="/announcements")
             span.glyphicon.glyphicon-flag
             strong  Announcements
+
+      li
+        a(href="/search")
+            span.glyphicon.glyphicon-search
+            strong  Search
+            
       li
         a(href="/logout")
             span.glyphicon.glyphicon-off

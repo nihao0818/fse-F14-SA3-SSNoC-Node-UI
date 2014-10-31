@@ -14,10 +14,7 @@ module.exports = function(_, io, passport) {
         },
 
         setStartSSNanalysis : function(req,res){
-
             console.info('inside setStartSSNanalysis.js');
-
-
             if (req.param('startTime') == "infinite"){
                 var startTime = "1900-01-01 00:00"; //cite parameter here-----
             }
