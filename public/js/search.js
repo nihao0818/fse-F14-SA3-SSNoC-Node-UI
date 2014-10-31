@@ -74,11 +74,10 @@ function init() {
             data:{content:content,type:type}
         }).done(function (data) {
         	console.log("sent successfully!");
+			console.log(data.queryResult);
 
-        	if(data.queryResult.length < 1){
-        		$("#alert").html("No Results!");
-        	}
-        	else{
+
+        	if(data.hasOwnProperty('queryResult') && data.queryResult.length >= 1 ){
         		var toDisplay = data.queryResult;
 	        	if(data.queryType == "User Search By Name" || data.queryType == "User Search By Name"){
 	        		toDisplay = reorder(data.queryResult);
@@ -87,6 +86,9 @@ function init() {
 
 	        	renderResults(toDisplay,data.queryType);
         	}
+			else{
+				$("#alert").html("No Results!");
+			}
 
         });
 	}
