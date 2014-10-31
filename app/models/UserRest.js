@@ -3,15 +3,31 @@ var request = require('request');
 var rest_api = require('../../config/rest_api');
 
 
-function User(user_name, password, status, statusDate){
+function User(user_name, password, status, statusDate,rolelevel,accountstatus){
   this.local = {
+   //   userNameObj : userNameObj,
     name : user_name,
     password : password,
     status : status,
-    statusDate: statusDate
+    statusDate: statusDate,
+      privilegeLevel : rolelevel,
+    accountStatus: accountstatus
 
   };
 }
+
+User.updateAll = function( userNameObj, user_name, password, rolelevel,accountstatus,callback){
+    request.put({url:rest_api.Update_a_user_record + userNameObj, body: {userName:user_name, password:password, privilegeLevel:rolelevel, accountStatus:accountstatus}, json:true }, function(err, res, body) {
+    if (err || res.statusCode !== 200){
+        console.log("return unsuccessfully!");
+        console.log(res.statusCode);
+    }
+    console.log("return successfully");
+    return;
+});
+};
+
+
 
 User.generateHash = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

@@ -69,6 +69,8 @@ module.exports = function(app, _, io, participants, passport) {
 
   app.post("/postAnnouncement",isLoggedIn,ann_controller.sendAnnouncement);
 
+  app.put("/UpdateAll",isLoggedIn,user_controller.getStatusUpdated);
+
   app.get("/");
 
 

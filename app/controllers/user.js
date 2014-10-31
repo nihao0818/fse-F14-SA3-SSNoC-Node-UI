@@ -2,6 +2,16 @@ var User = require('../models/UserRest');
 
 module.exports = function(_, io, participants, passport, refreshAllUsers) {
   return {
+    getStatusUpdated : function(req, res) {
+        var usernameObj = req.param('userNameObj');
+        var username = req.param('userName');
+        var password = req.param('password');
+        var accountStatus = req.param('accountStatus');
+        var role = req.param('role');
+        User.updateAll(usernameObj,username, password, role, accountStatus,callback);
+    },
+
+
     getLogin : function(req, res) {
       res.render("join", {message: req.flash('loginMessage')});
     },
