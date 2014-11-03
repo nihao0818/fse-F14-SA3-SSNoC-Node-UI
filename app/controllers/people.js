@@ -6,12 +6,12 @@ module.exports = function(_, io, participants, passport) {
         for(var i = 0; i < participants.all.length; i++) {
             console.log("gooood" + participants.all[i]);
             if(participants.all[i].userName==req.session.passport.user.user_name){
-                var status = participants.all[i].userStatus;
+                var role = participants.all[i].privilegeLevel;
             }
         }
 
-        if (req.session.passport.user.user_name.toString() != "Qihao"){
-
+        if (role != "Administrator"){
+//        if (0){
             res.render("people", {userId: req.session.userId, title:("People"), user_name:req.session.passport.user.user_name});
             console.log(req.body);
         }

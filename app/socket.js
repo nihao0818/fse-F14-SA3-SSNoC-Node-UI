@@ -12,9 +12,27 @@ module.exports = function(_, io, participants, test) {
       io.sockets.emit("newConnection", {participants: participants});
     });
 
+
+
     socket.on("requireParticipant", function() {
       io.sockets.emit("getParticipant", {participants: participants});
     });
+
+
+      socket.on("upUser", function(data) {
+
+          for(var i = 0; i < participants.all.length; i++){
+              console.log("gooood" + participants.all[i]);
+              if(participants.all[i].userName==data.oldname){
+                  participants.all[i].userName=data.name;
+                  participants.all[i].privilegeLevel=data.role;
+                  participants.all[i].accountStatus=data.accountStatus;
+
+              }
+          }
+          io.sockets.emit("Update");
+
+      });
 
     socket.on("statusUpdate", function(data) {
       participants.online[data.id] = {'userName' : data.name, 'status': data.status, 'statusDate' : data.statusDate};
@@ -33,6 +51,8 @@ module.exports = function(_, io, participants, test) {
             io.sockets.emit("publicWallMessages",{messages:results});
         });
     });
+
+
 
 
       publicWall.getWallMessages(function(err,results){

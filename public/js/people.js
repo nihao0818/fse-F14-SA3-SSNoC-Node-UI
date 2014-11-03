@@ -78,7 +78,7 @@ function init() {
         var detail_ele = '<div class="row user-info ' + userObj.userName + '"><a class="btn btn-info col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">Current USERNAME: '+userObj.userName+'</a><br><br>' +
             '<div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span><input id="userName" type="text" name="name" placeholder="Please enter a user name" class="name form-control"/></div>'+'<a class="btn btn-info col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">Current PASSWOED: </a><br><br><div><hr></div>';
         $('#participants_offline').append(info_ele);
-        $('#participants_offline').append(detail_ele);
+        //$('#participants_offline').append(detail_ele);
       }
 
 

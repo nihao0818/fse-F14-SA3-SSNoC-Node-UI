@@ -25,6 +25,7 @@ function init() {
 
       var status = participants.online[sId].status;
       var statusDate = participants.online[sId].statusDate;
+        var accountStatus = participants.online[sId].accountStatus;
       if (map[userName] == undefined || map[userName] !== sessionId){
         map[userName] = {sId:sId,status:status,statusDate:statusDate};
 
@@ -75,13 +76,12 @@ function init() {
 
         var detail_ele = '<div class="row user-info ' + userObj.userName + '"><a class="btn btn-warning col-sm-4 col-sm-offset-4">Currently UserName: '+userObj.userName+'</a><br><br>' +
             '<div class="input-group col-sm-4 col-sm-offset-4"><span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span><input id="userName'+userObj.userName+'" type="text" name="name" placeholder="Please enter an user name" class="name form-control"/></div><br>' +
-            '<a class="btn btn-success col-sm-4 col-sm-offset-4">Currently Status: '+userObj.userStatus+'</a><br><br>' +
-            '<div class="input-group col-sm-4 col-sm-offset-4"><span class="input-group-addon"><span class="glyphicon glyphicon-question-sign"></span></span><input id="status'+userObj.userName+'" type="text" name="name" placeholder="Please enter an user status" class="name form-control"/></div><br>' +
-            '<a class="btn btn-danger col-sm-4 col-sm-offset-4">Currently password: encrypted </a><br><br>' +
+
+            '<a class="btn btn-success col-sm-4 col-sm-offset-4">Currently password: ENCRYPTED</a><br><br>' +
             '<div class="input-group col-sm-4 col-sm-offset-4"><span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span><input id="password'+userObj.userName+'" type="text" name="passwd" placeholder="Please enter an user password" class="name form-control"/></div><br>' +
             '<a class="btn btn-info col-sm-4 col-sm-offset-4">Currently Account Status: '+userObj.accountStatus+'</a><br><br>' +
             '<div class="input-group col-sm-4 col-sm-offset-4"><span class="input-group-addon"><span class="glyphicon glyphicon-play"></span></span><input id="accountStatus'+userObj.userName+'" type="text" name="aStatus" placeholder="Please enter an user Account Status" class="name form-control"/></div><br>' +
-            '<a class="btn btn-primary col-sm-4 col-sm-offset-4">Currently Role: '+userObj.roleLevel+'</a><br><br>' +
+            '<a class="btn btn-primary col-sm-4 col-sm-offset-4">Currently Role: '+userObj.privilegeLevel+'</a><br><br>' +
             '<div class="input-group col-sm-4 col-sm-offset-4"><span class="input-group-addon"><span class="glyphicon glyphicon-eye-open"></span></span><input id="role'+userObj.userName+'" type="text" name="role" placeholder="Please enter an user Role" class="name form-control"/></div><br>' +
             changeButton + alert +
             '</div><div><hr></div>';
@@ -98,28 +98,31 @@ function init() {
             //  $('#alert'+sourceUser).text(sourceUser);
             //  $('#alert'+sourceUser).show();
 
-              console.log("Here is an err");
+              console.log("yeahyeah");
               //$('#alert'+sourceUser).show();
 
                if( !validateUserNameAndPassword(sourceUser) ) {
                return false;
                }
 
-              console.info("in abcdef");
-              //location.reload();
+              console.info("varification passed");
+
               $.ajax({
-                  url: '/updateAll',
+                  url: '/UpdateAll/',
                   type: 'PUT',
                   dataType: 'json',
                   data : {
                       userNameObj : sourceUser,
-                      userName: ($('#userName'+sourceUser).val() == "" ? "infinite" : $('#userName'+sourceUser).val()),
-                      password: ($('#password'+sourceUser).val() == "" ? "infinite" : $('#password'+sourceUser).val()),
-                      accountStatus: ($('#accountStatus'+sourceUser).val() == "" ? "infinite" : $('#accountStatus'+sourceUser).val()),
-                      role: ($('#role'+sourceUser).val() == "" ? "infinite" : $('#role'+sourceUser).val())
+                      userName: ($('#userName'+sourceUser).val() == "" ? null : $('#userName'+sourceUser).val()),
+                      password: ($('#password'+sourceUser).val() == "" ? null : $('#password'+sourceUser).val()),
+                      accountStatus: ($('#accountStatus'+sourceUser).val() == "" ? null : $('#accountStatus'+sourceUser).val()),
+                      role: ($('#role'+sourceUser).val() == "" ? null  : $('#role'+sourceUser).val())
                   }
               }).done(function (data) {
-                  location.reload();
+                 location.reload();
+                  socket.emit('upUser', {oldname : sourceUser, name: $('#userName'+sourceUser).val(), password:$('#password'+sourceUser).val(), accountStatus: $('#accountStatus'+sourceUser).val(), role: $('#role'+sourceUser).val()});
+
+                  console.log("Donedonedoen");
               }).error(function (err) {
                   console.log("Here is an err");
                   console.log(err);
@@ -249,6 +252,10 @@ function generateDate(){
   socket.on('statusUpdate', function (data) {
     updateParticipants(data.participants);
   });
+
+    socket.on('Update', function (data) {
+        updateParticipants(data.participants);
+    });
 
   socket.on('userDisconnected', function(data) {
     updateParticipants(data.participants);

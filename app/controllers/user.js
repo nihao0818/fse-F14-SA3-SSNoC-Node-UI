@@ -8,7 +8,10 @@ module.exports = function(_, io, participants, passport, refreshAllUsers) {
         var password = req.param('password');
         var accountStatus = req.param('accountStatus');
         var role = req.param('role');
-        User.updateAll(usernameObj,username, password, role, accountStatus,callback);
+        console.log("come from user.js: "+ usernameObj);
+        User.updateAll(usernameObj,username, password, role, accountStatus);
+
+        res.json(200);
     },
 
 
@@ -29,7 +32,6 @@ module.exports = function(_, io, participants, passport, refreshAllUsers) {
       var user_name = req.session.passport.user.user_name;
       User.getUser(user_name, function(err, user) {
         if (user !== null) {
-
           res.json(200, {name:user.local.name, status:user.local.status, statusDate:user.local.statusDate});
         }
       });
