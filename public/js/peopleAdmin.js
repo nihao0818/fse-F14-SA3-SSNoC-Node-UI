@@ -113,10 +113,10 @@ function init() {
                   dataType: 'json',
                   data : {
                       userNameObj : sourceUser,
-                      userName: ($('#userName'+sourceUser).val() == "" ? null : $('#userName'+sourceUser).val()),
-                      password: ($('#password'+sourceUser).val() == "" ? null : $('#password'+sourceUser).val()),
-                      accountStatus: ($('#accountStatus'+sourceUser).val() == "" ? null : $('#accountStatus'+sourceUser).val()),
-                      role: ($('#role'+sourceUser).val() == "" ? null  : $('#role'+sourceUser).val())
+                      userName: ($('#userName'+sourceUser).val()),
+                      password: ($('#password'+sourceUser).val()),
+                      accountStatus: ($('#accountStatus'+sourceUser).val()),
+                      role: ($('#role'+sourceUser).val())
                   }
               }).done(function (data) {
                  location.reload();

@@ -24,10 +24,19 @@ module.exports = function(_, io, participants, test) {
           for(var i = 0; i < participants.all.length; i++){
               console.log("gooood" + participants.all[i]);
               if(participants.all[i].userName==data.oldname){
-                  participants.all[i].userName=data.name;
-                  participants.all[i].privilegeLevel=data.role;
-                  participants.all[i].accountStatus=data.accountStatus;
-
+                  if(data.name!= ""){
+                      participants.all[i].userName=data.name;
+                  }else{
+                      participants.all[i].userName;
+                  }
+                  if(data.role!=""){
+                      participants.all[i].privilegeLevel=data.role;
+                  }else{participants.all[i].privilegeLevel;}
+                  if(data.accountStatus!=""){
+                      participants.all[i].accountStatus=data.accountStatus;
+                  }else{
+                      participants.all[i].accountStatus;
+                  }
               }
           }
           io.sockets.emit("Update");
@@ -51,9 +60,6 @@ module.exports = function(_, io, participants, test) {
             io.sockets.emit("publicWallMessages",{messages:results});
         });
     });
-
-
-
 
       publicWall.getWallMessages(function(err,results){
         if(err){
