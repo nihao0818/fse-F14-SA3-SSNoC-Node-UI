@@ -25,6 +25,7 @@ module.exports = function(app, _, io, participants, passport) {
 
   app.get("/user", isLoggedIn, user_controller.getUser);
 
+  app.get("/normalpeople", isLoggedIn, people_controller.getNormalPeople);
 
   app.post("/status/:name", user_controller.updateStatus);
 

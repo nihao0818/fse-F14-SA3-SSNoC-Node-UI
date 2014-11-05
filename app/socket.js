@@ -4,7 +4,7 @@ var publicWall=require('./models/MessageWallRest');
 var announcements=require('./models/announcementsRest');
 
 
-module.exports = function(_, io, participants, test) {
+module.exports = function(_, io, participants, test, passport) {
   io.on("connection", function(socket){
     socket.on("newUser", function(data) {
 
@@ -61,20 +61,31 @@ module.exports = function(_, io, participants, test) {
         });
     });
 
-      publicWall.getWallMessages(function(err,results){
-        if(err){
-              console.log("Error getting Wall Messages: "+err);
+    var role;
+      socket.on("refreshWall", function(data) {
+
+          for(var i = 0; i < participants.all.length; i++){
+//              if(participants.all[i].userName=="Administrator"){
+              if(participants.all[i].userName==data.user_name){
+                  role = participants.all[i].privilegeLevel;
+              }
+
           }
-          io.sockets.emit("publicWallMessages",{messages:results});
-    });
+          publicWall.getWallMessages(role, function (err, results) {
+              if (err) {
+                  console.log("Error getting Wall Messages: " + err);
+              }
+              io.sockets.emit("publicWallMessages", {messages: results});
+          });
 
 
-      announcements.getAnnouncements(function(err,results){
-          if(err){
-              console.log("Error getting Wall Messages: "+err);
-          }
-          io.sockets.emit("announcements",{messages:results});
-      })
+          announcements.getAnnouncements(function (err, results) {
+              if (err) {
+                  console.log("Error getting Wall Messages: " + err);
+              }
+              io.sockets.emit("announcements", {messages: results});
+          });
+      });
 
     socket.on("disconnect", function() {
       delete participants.online[socket.id];

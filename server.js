@@ -49,7 +49,7 @@ User.getAllUsers(function(err, users) {
   }
 
   require('./app/routes')(app, _, io, participants, passport);
-  require('./app/socket')(_, io, participants, test);
+  require('./app/socket')(_, io, participants, test, passport);
 });
 
 http.listen(app.get("port"), app.get("ipaddr"), function() {
