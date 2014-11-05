@@ -78,6 +78,11 @@ module.exports = function(_, io, participants, test, passport) {
               io.sockets.emit("publicWallMessages", {messages: results});
           });
 
+          for(var i = 0; i < participants.all.length; i++){
+//              if(participants.all[i].userName=="Administrator"){
+              if(participants.all[i].userName==data.user_name){
+                  role = participants.all[i].privilegeLevel;
+              }
 
           announcements.getAnnouncements(function (err, results) {
               if (err) {
