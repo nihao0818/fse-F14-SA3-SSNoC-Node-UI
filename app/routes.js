@@ -13,7 +13,7 @@ module.exports = function(app, _, io, participants, passport) {
   var SSN_controller = require('./controllers/SSN')(_,io,participants,passport);
 
   var wall_controller = require('./controllers/messageWallC')(_,io,passport);
-  var ann_controller = require('./controllers/announcementsC')(_,io,passport);
+  var ann_controller = require('./controllers/announcementsC')(_,io,participants,passport);
 
   var search_controller = require('./controllers/search')(_,io,passport,participants);
 
@@ -25,6 +25,7 @@ module.exports = function(app, _, io, participants, passport) {
 
   app.get("/user", isLoggedIn, user_controller.getUser);
 
+  app.get("/normalpeople", isLoggedIn, people_controller.getNormalPeople);
 
   app.post("/status/:name", user_controller.updateStatus);
 

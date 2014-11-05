@@ -4,6 +4,10 @@
 function init(){
     var serverBaseUrl = document.domain;
     var socket = io.connect(serverBaseUrl);
+    var usernameraw = $("p.navbar-brand").find("span").html();
+    var names = usernameraw.split(" ");
+    var userName = names[1];
+    socket.emit("refreshWall",{user_name: userName});
 
         function updatePublicWall(data){
             $('#messageWall').html('');

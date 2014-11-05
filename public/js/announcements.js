@@ -6,7 +6,25 @@ function init(){
     var serverBaseUrl=document.domain;
     var socket = io.connect(serverBaseUrl);
 
+
+
     function updateAnnouncements(data){
+
+//        var usernameraw = $("p.navbar-brand").find("span").html();
+//        var names = usernameraw.split(" ");
+//        var userName = names[1];
+//        var role;
+//
+//        for(var i = 0; i < participants.all.length; i++){
+//
+//            if(participants.all[i].userName==userName){
+//                role =  participants.all[i].privilegeLevel;
+//
+//            }
+//        }
+//        console.info(role);
+//        console.info("+++++++++++"+role);
+
         $('#announcementsWall').html('');
         for(var i=0;i<data.length;i++){
             var name = data[i].author;
@@ -19,6 +37,7 @@ function init(){
                     '<td width="43%">' + postedAt + '</td></tr>' +
                     '</table>' +
                     '</div>';
+//            console.info("+++++++++++"+role);
             $('#announcementsWall').append(announcement);
         }
     };

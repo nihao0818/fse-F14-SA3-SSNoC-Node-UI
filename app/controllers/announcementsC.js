@@ -4,13 +4,25 @@
 
 var annRest = require('../models/announcementsRest');
 
-module.exports = function(_,io,passport) {
-
+module.exports = function(_, io, participants, passport,refreshAllUsers) {
     return{
-
         getAnnoucementsPage : function(req,res){
-            res.render('Announcements',{title:"Hello "+req.session.passport.user.user_name+" !!"});
+            var role;
+            for(var i = 0; i < participants.all.length; i++) {
+//                console.log("gooood " + participants.all[i].userName);
+                if(participants.all[i].userName==req.session.passport.user.user_name){
+                     role = participants.all[i].privilegeLevel;
+                }
+            }
+            if (role == "Coordinator" || role == "Administrator"){
+                res.render('Announcements',{title:"Hello "+req.session.passport.user.user_name+" !!"});
+            }
+            else{
+                res.render('AnnouncementsNormal',{title:"Hello "+req.session.passport.user.user_name+" !!"});
+            }
+
         },
+
         sendAnnouncement : function (req, res) {
             var user_name = req.session.passport.user.user_name;
             var content = req.body.announcement;
