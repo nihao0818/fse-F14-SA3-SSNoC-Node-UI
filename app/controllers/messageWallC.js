@@ -11,7 +11,16 @@ module.exports = function(_,io,participants,passport){
         },
 
         getPublicWallPageInfo : function(req,res){
-            messageWallR.getWallMessages(function(err,body){
+            var user_name = req.session.passport.user.user_name;
+            var role;
+            for(var i = 0; i < participants.all.length; i++) {
+
+                if(participants.all[i].userName==user_name){
+                     role = participants.all[i].privilegeLevel;
+                }
+            }
+
+            messageWallR.getWallMessages(role,function(err,body){
                 res.json(200, {});
             });
         },
