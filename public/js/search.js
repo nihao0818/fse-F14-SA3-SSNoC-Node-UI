@@ -14,7 +14,7 @@ function init() {
     var results;
     var curPos;
     var online_users;
-
+	var name;
     function renderTen(){
     	var newLines;
     	var i = curPos+1;
@@ -220,6 +220,27 @@ function init() {
                 console.log("online_users:" + online_users);
 
     });
+
+	socket.on("newChatMsgAlert",function(data){
+		if(name=data.target){
+			alert(data.source+' has sent you a private message \n' +
+			'Message: '+data.content);
+		}
+	});
+
+	socket.on('connect', function () {
+		sessionId = socket.socket.sessionid;
+		$.ajax({
+			url:  '/user',
+			type: 'GET',
+			dataType: 'json'
+		}).done(function(data) {
+			name = data.name;
+			var status = data.status;
+			var statusDate = data.statusDate;
+			socket.emit('newUser', {id: sessionId, name: name, status:status, statusDate:statusDate});
+		});
+	});
 
 
 }

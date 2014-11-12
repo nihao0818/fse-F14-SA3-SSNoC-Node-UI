@@ -3,7 +3,7 @@
  */
 function init() {
     var serverBaseUrl = document.domain;
-
+    var name;
     var socket = io.connect(serverBaseUrl);
 
     var test;
@@ -155,6 +155,27 @@ function init() {
         else {
             $("#alert").html("Measure Performance Running........");
         }
+    });
+
+    socket.on("newChatMsgAlert",function(data){
+        if(name=data.target){
+            alert(data.source+' has sent you a private message \n' +
+            'Message: '+data.content);
+        }
+    });
+
+    socket.on('connect', function () {
+        sessionId = socket.socket.sessionid;
+        $.ajax({
+            url:  '/user',
+            type: 'GET',
+            dataType: 'json'
+        }).done(function(data) {
+            name = data.name;
+            var status = data.status;
+            var statusDate = data.statusDate;
+            socket.emit('newUser', {id: sessionId, name: name, status:status, statusDate:statusDate});
+        });
     });
 }
 $(document).on('ready', init);

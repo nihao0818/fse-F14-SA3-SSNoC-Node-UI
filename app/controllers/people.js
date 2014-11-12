@@ -12,8 +12,9 @@ module.exports = function(_, io, participants, passport) {
         //get participants
         for(var i = 0; i < participants.all.length; i++) {
             console.log("gooood   " + participants.all[i].userName);
+            var role;
             if(participants.all[i].userName==req.session.passport.user.user_name){
-                var role = participants.all[i].privilegeLevel;
+                 role = participants.all[i].privilegeLevel;
             }
         }
         switch (role){

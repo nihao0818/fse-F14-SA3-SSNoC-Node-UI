@@ -10,7 +10,27 @@ module.exports = function(_, io, passport,participants) {
 
         getSearchPage : function(req, res) {
 
-            res.render('Search', {title: "Hello " +req.session.passport.user.user_name+" !!"} );
+            var role;
+            for(var i = 0; i < participants.all.length; i++) {
+//                console.log("gooood " + participants.all[i].userName);
+                if(participants.all[i].userName==req.session.passport.user.user_name){
+                    role = participants.all[i].privilegeLevel;
+                }
+            }
+            if (role == "Coordinator"){
+                res.render('SearchCoordinator',{title:"Hello "+req.session.passport.user.user_name+" !!"});
+            }
+            else if (role == "Monitor"){
+                res.render('SearchMonitor',{title:"Hello "+req.session.passport.user.user_name+" !!"});
+            }
+            else if (role == "Administrator"){
+                res.render('SearchAdministrator',{title:"Hello "+req.session.passport.user.user_name+" !!"});
+            }
+            else{
+                res.render('Search',{title:"Hello "+req.session.passport.user.user_name+" !!"});
+            }
+
+            //res.render('Search', {title: "Hello " +req.session.passport.user.user_name+" !!"} );
 
         },
 

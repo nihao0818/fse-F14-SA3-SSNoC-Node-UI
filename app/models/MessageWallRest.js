@@ -36,8 +36,6 @@ function wallMessages(){}
     wallMessages.getWallMessages = function(role,callback){
         var role1 = role;
         if (role1 == "Administrator" ) {
-
-//      if (1) {
             console.info("*************************"+role1);
             request(rest_api.messages + '/wall', {json: true}, function (err, res, body) {
                 if (err) {

@@ -12,10 +12,11 @@ module.exports = function(app, _, io, participants, passport) {
 
   var SSN_controller = require('./controllers/SSN')(_,io,participants,passport);
 
-  var wall_controller = require('./controllers/messageWallC')(_,io,passport);
+  var wall_controller = require('./controllers/messageWallC')(_,io,participants,passport);
   var ann_controller = require('./controllers/announcementsC')(_,io,participants,passport);
 
   var search_controller = require('./controllers/search')(_,io,passport,participants);
+  var chat_controller = require('./controllers/chatController')(_,io,passport,participants);
 
   app.get("/", user_controller.getLogin);
 
@@ -41,6 +42,9 @@ module.exports = function(app, _, io, participants, passport) {
   app.get("/getMessageWall",wall_controller.getPublicWallPageInfo);
 
   app.post("/sendTestWallMessage",wall_controller.sendTestWallMessage);
+  app.post("/chatMessagePage",isLoggedIn,chat_controller.getChatMessagePage);
+  app.post("/sendChatMessage",isLoggedIn,chat_controller.sendChatMessage);
+  app.post("/getChatHistory",isLoggedIn,chat_controller.getChatMessages);
 
   app.get("/measurePerformance", isLoggedIn, performance_controller.getPerformanceMeasurePage);
 
@@ -102,7 +106,7 @@ function refreshAllUsers(participants, callback) {
   User.getAllUsers(function(err, users) {
     users.forEach(function(user) {
 
-      participants.all.push({'userName' : user.local.name, 'userStatus' : user.local.status});
+      participants.all.push({'userName' : user.local.name, 'userStatus' : user.local.status, 'statusDate' : user.local.statusDate, 'accountStatus' : user.local.accountStatus, 'privilegeLevel' : user.local.privilegeLevel});
 
     });
     callback();

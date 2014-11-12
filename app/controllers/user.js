@@ -56,7 +56,7 @@ module.exports = function(_, io, participants, passport, refreshAllUsers) {
         req.logIn(user, function(err) {
           if (err)
             return next(err);
-          participants.all.push({'userName' : user.local.name});
+          participants.all.push({'userName' : user.local.name,'accountStatus':1, 'privilegeLevel':'Citizen'});
           return res.redirect('/welcome');
         });
       })(req, res, next);

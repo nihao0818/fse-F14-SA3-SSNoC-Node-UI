@@ -26,7 +26,7 @@ module.exports = function(_, io, passport) {
 
             var datenow = new Date();
             if (req.param('endTime') == "infinite"){
-                endTime = datenow.getFullYear() + "-" + datenow.getMonth() + "-" + datenow.getDate() + " " +datenow.getHours() + ":" +datenow.getMinutes();
+                endTime = datenow.getFullYear() + "-" + (datenow.getMonth()+1) + "-" + datenow.getDate() + " " +datenow.getHours() + ":" +datenow.getMinutes();
             }
             else{
                 endTime = req.param('endTime');

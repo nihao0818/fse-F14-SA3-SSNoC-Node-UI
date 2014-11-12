@@ -5,7 +5,6 @@ var rest_api = require('../../config/rest_api');
 
 function User(user_name, password, status, statusDate,accountstatus,rolelevel){
   this.local = {
-   //   userNameObj : userNameObj,
     name : user_name,
     password : password,
     status : status,
@@ -87,7 +86,6 @@ User.getAllUsers = function(callback) {
     }
     if (res.statusCode === 200) {
       var users = body.map(function(item, idx, arr){
-
         return new User(item.userName, item.password, item.statusCode, item.statusDate, item.accountStatus, item.privilegeLevel);
 
       });
@@ -114,6 +112,7 @@ User.saveNewUser = function(user_name, password, callback) {
     json: true
   };
 
+    console.log("Adding new user to DB");
   request.post(options, function(err, res, body) {
     if (err){
       callback(err,null);
@@ -124,7 +123,7 @@ User.saveNewUser = function(user_name, password, callback) {
       return;
     }
 
-    var new_user = new User(body.userName, password, undefined, undefined);
+    var new_user = new User(body.userName, password, 1, "Citizen");
 
     callback(null, new_user);
     return;

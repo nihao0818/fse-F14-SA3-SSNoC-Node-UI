@@ -14,17 +14,11 @@ function SSNanalysis(startTime, endTime) {
     };
 
 }
-/*
-    SSNanalysis.startSSNanalysis = function(){
-        request.post(rest_api.SSN_analysis,function(err, res, body){
-        console.log("start SSN Analysis request sent to REST");
-            return;
-        });
-        return;
-    };
-*/
     SSNanalysis.startSSNanalysis = function(startTime, endTime, callback) {
+        console.log(startTime);
+        console.log(endTime);
     request(rest_api.SSN_analysis +startTime+'/'+endTime, {json:true}, function(err, res, body) {
+
         if (err){
             callback(err,res);
             return;

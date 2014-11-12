@@ -51,7 +51,7 @@ function init() {
 
       var info_ele = '<div class="row user-row search_item">' + user_ele + statusDisp_ele + dropdown_ele +'</div>';
 
-      var detail_ele = '<div class="row user-info ' + name + '"><a class="btn btn-info col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">Wanna do something?</a><hr/></div></div>';
+      var detail_ele = '<div class="row user-info ' + name + '"><button type="button" id="bid" name="'+name+'" class="btn btn-info col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 submitbutton">Chat</div></div>';
       if (map[name].sId === sessionId || name === my_name) {
       } else {
         $('#participants_online').append(info_ele);
@@ -86,6 +86,19 @@ function init() {
 
 
     });
+
+    //turning to private chat
+    $("#bid").click(function()
+    {
+      var target=$(this).attr('name');
+      var form = $("<form method='post', action='/chatMessagePage'></form>")
+      var inputTarget=$("<input type='hidden', name='target', value='"+target+"'>");
+      var inputSource=$("<input type='hidden', name='source', value='"+my_name+"'>");
+      form.append(inputTarget);
+      form.append(inputSource);
+      form.submit();
+    });
+
     $('.user-info').hide();
     $('.dropdown-user').click(function() {
       var dataFor = $(this).attr('data-for');
@@ -197,6 +210,13 @@ function generateDate(){
 
   socket.on('statusUpdate', function (data) {
     updateParticipants(data.participants);
+  });
+
+  socket.on("newChatMsgAlert",function(data){
+    if(my_name=data.target){
+      alert(data.source+' has sent you a private message \n' +
+      'Message: '+data.content);
+    }
   });
 
   socket.on('userDisconnected', function(data) {

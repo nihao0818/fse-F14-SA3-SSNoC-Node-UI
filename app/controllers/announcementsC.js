@@ -14,8 +14,14 @@ module.exports = function(_, io, participants, passport,refreshAllUsers) {
                      role = participants.all[i].privilegeLevel;
                 }
             }
-            if (role == "Coordinator" || role == "Administrator"){
+            if (role == "Coordinator"){
                 res.render('Announcements',{title:"Hello "+req.session.passport.user.user_name+" !!"});
+            }
+            else if (role == "Monitor"){
+                res.render('AnnouncementsMonitor',{title:"Hello "+req.session.passport.user.user_name+" !!"});
+            }
+            else if (role == "Administrator"){
+                res.render('AnnouncementsAdministrator',{title:"Hello "+req.session.passport.user.user_name+" !!"});
             }
             else{
                 res.render('AnnouncementsNormal',{title:"Hello "+req.session.passport.user.user_name+" !!"});
