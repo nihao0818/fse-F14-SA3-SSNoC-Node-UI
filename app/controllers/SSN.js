@@ -5,12 +5,24 @@
 
 var SSNanalysis = require('../models/SSNRest')
 
-module.exports = function(_, io, passport) {
+module.exports = function(_, io,participants, passport) {
 
     return{
 
         getSSNanalysisPage : function(req, res) {
-            res.render('SSNanalysis', {title: "Hello " + " !!"} );
+            for(var i = 0; i < participants.all.length; i++) {
+                console.log("gooood   " + participants.all[i].userName);
+                var role;
+                if(participants.all[i].userName==req.session.passport.user.user_name){
+                    role = participants.all[i].privilegeLevel;
+                }
+            }
+            if (role == "Administrator") {
+                res.render('SSNanalysisAdmin', {title: "Hello " + " !!"});
+            }
+            else{
+                res.render('SSNanalysis', {title: "Hello " + " !!"});
+            }
         },
 
         setStartSSNanalysis : function(req,res){

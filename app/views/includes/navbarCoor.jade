@@ -19,13 +19,14 @@ nav.navbar.navbar-default.navbar-fixed-top(role="navigation")#top-navbar
         a(href="/messageWall")
             span.glyphicon.glyphicon-globe
             Strong  Public Wall
-      li
-        a.dropdown.dropdown-toggle(data-toggle="dropdown")
+        li
+          a(class="btn dropdown-toggle" data-toggle="dropdown" type="button")
             span.glyphicon.glyphicon-list
-            Strong &nbsp;Analysis
-          ul.dropdown-menu.list-inline
-            li
-              a(href="/SSN_Analysis")
+            font(size ="4")
+                Strong &nbsp;Analysis
+           ul.dropdown-menu.list-inline
+              li
+                a(href="/SSN_Analysis")
                     span.glyphicon.glyphicon-tasks
                     strong  SSN Analysis
             //li

@@ -5,6 +5,9 @@
 function init(){
     var serverBaseUrl=document.domain;
     var socket = io.connect(serverBaseUrl);
+    var usernameraw = $("p.navbar-brand").find("span").html();
+    var names = usernameraw.split(" ");
+    var userName = names[1];
     var name;
 
 
@@ -41,6 +44,8 @@ function init(){
             $('#announcementsWall').append(announcement);
         }
     };
+
+    socket.emit("refreshAnnouncement",{user_name: userName});
 
     socket.on('announcements', function (data) {
         updateAnnouncements(data.messages);

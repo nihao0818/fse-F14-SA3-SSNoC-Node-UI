@@ -68,6 +68,7 @@ module.exports = function(_, io, participants, test, passport) {
 //              if(participants.all[i].userName=="Administrator"){
               if(participants.all[i].userName==data.user_name){
                   role = participants.all[i].privilegeLevel;
+
               }
 
           }
@@ -79,21 +80,29 @@ module.exports = function(_, io, participants, test, passport) {
           });
 
 
-          announcements.getAnnouncements(function (err, results) {
+          announcements.getAnnouncements(role,function (err, results) {
               if (err) {
                   console.log("Error getting Wall Messages: " + err);
               }
               io.sockets.emit("announcements", {messages: results});
           });
       });
+        socket.on("refreshAnnouncement",function(data){
+            for(var i = 0; i < participants.all.length; i++) {
+//              if(participants.all[i].userName=="Administrator"){
+                if (participants.all[i].userName == data.user_name) {
+                    role = participants.all[i].privilegeLevel;
 
-      announcements.getAnnouncements(function (err, results) {
-          if (err) {
-              console.log("Error getting Wall Messages: " + err);
-          }
-          io.sockets.emit("announcements", {messages: results});
-      });
+                }
+            }
+        announcements.getAnnouncements(role,function (err, results) {
 
+              if (err) {
+                  console.log("Error getting Wall Messages: " + err);
+              }
+              io.sockets.emit("announcements", {messages: results});
+        });}
+      )
       socket.on("newChatMessage",function(data){
           io.sockets.emit(data.source,data);
           io.sockets.emit(data.target,data);

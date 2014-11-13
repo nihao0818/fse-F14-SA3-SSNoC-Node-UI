@@ -4,14 +4,24 @@
 
 var performanceMonitor = require('../models/performanceMonitorRest');
 
-module.exports = function(_, io, passport) {
+module.exports = function(_, io, participants,passport) {
 
     return{
 
         getPerformanceMeasurePage : function(req, res) {
-
-            res.render('PerformanceMeasure', {title: "Hello " +req.session.passport.user.user_name+" !!"} );
-
+            for(var i = 0; i < participants.all.length; i++) {
+                console.log("gooood   " + participants.all[i].userName);
+                var role;
+                if(participants.all[i].userName==req.session.passport.user.user_name){
+                    role = participants.all[i].privilegeLevel;
+                }
+            }
+            if (role =="Administrator") {
+                res.render('PerformanceMeasureAdmin', {title: "Hello " + req.session.passport.user.user_name + " !!"});
+            }
+            else{
+                res.render('PerformanceMeasure', {title: "Hello " + req.session.passport.user.user_name + " !!"});
+            }
         },
 
         setUpPerformanceMonitor : function(req,res){

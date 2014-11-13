@@ -32,20 +32,41 @@ function announcements(){}
         });
     };
 
-    announcements.getAnnouncements = function(callback){
-      request(rest_api.messages+'/announcement',{json:true}, function (err, res, body) {
-            if (err){
-                callback(err,res);
-                return;
-            }
-            if (res.statusCode === 200) {
-                callback(null, body);
-                return;
-            }
-            if (res.statusCode !== 200) {
-                callback(null, null);
-                return;
-            }
-        });
+    announcements.getAnnouncements = function(role,callback){
+        var role1 = role;
+        console.log(role1);
+        if (role1 == "Administrator") {
+            console.log(role);
+            request(rest_api.messages + '/announcement', {json: true}, function (err, res, body) {
+                if (err) {
+                    callback(err, res);
+                    return;
+                }
+                if (res.statusCode === 200) {
+                    callback(null, body);
+                    return;
+                }
+                if (res.statusCode !== 200) {
+                    callback(null, null);
+                    return;
+                }
+            });
+        }
+        else {
+            request(rest_api.messages + '/announcement/visible', {json: true}, function (err, res, body) {
+                if (err) {
+                    callback(err, res);
+                    return;
+                }
+                if (res.statusCode === 200) {
+                    callback(null, body);
+                    return;
+                }
+                if (res.statusCode !== 200) {
+                    callback(null, null);
+                    return;
+                }
+            });
+        }
     };
 module.exports = announcements;
