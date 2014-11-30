@@ -123,9 +123,13 @@ module.exports = function(_, io, participants, test, passport) {
           io.sockets.emit("testStatus", {test: test});
       });
 
-      // socket.on("startPerformanceMeasure", function(data) {
-      //     var duration = data.duration;
-      // });
+      socket.on("getUserLocations",function(){
+          io.sockets.emit("getLocation");
+      });
+
+      socket.on("emitUserLoc",function(data){
+          io.sockets.emit("userLoc",{username:data.name,latitude:data.userPosLat,longitude:data.userPosLong});
+      });
 
   });
 };

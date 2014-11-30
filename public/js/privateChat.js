@@ -6,6 +6,8 @@ function init(){
 	var source = $('#sourceUser').val();
 	var target = $('#targetUser').val();
 
+	var name;
+
     $('#sendChatMessageButton').click(function(){
 		var content=$('#chatMessage').val();
 		var d = new Date();
@@ -28,6 +30,27 @@ function init(){
     		console.log("private message save failed");
     	});
 	});
+
+	function userLocation(){
+		//user location gathering
+		var userPosLat;
+		var userPosLong;
+		getLocation();
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition);
+			} else {
+				x.innerHTML = "Geolocation is not supported by this browser.";
+				console.log("MapLocation not found");
+			}
+		}
+		function showPosition(position) {
+			userPosLat = position.coords.latitude;
+			userPosLong = position.coords.longitude;
+
+			socket.emit('emitUserLoc', {name: name, userPosLat:userPosLat, userPosLong:userPosLong});
+		}
+	}
 
 	socket.on(source,function(data){
 		var name = data.source;
@@ -59,6 +82,10 @@ function init(){
 		}
 	});
 
+	socket.on('getLocation',function(){
+		userLocation();
+	});
+
 	socket.on('connect', function () {
 			sessionId = socket.socket.sessionid;
 			//getting the user details for the session to keep him online if he is in this page
@@ -67,10 +94,11 @@ function init(){
 				type: 'GET',
 				dataType: 'json'
 			}).done(function(data) {
-				var name = data.name;
+				name = data.name;
 				var status = data.status;
 				var statusDate = data.statusDate;
 				socket.emit('newUser', {id: sessionId, name: name,status:status, statusDate:statusDate});
+				userLocation();
 			});
 			//getting the conversation history between the source and target
 			$.ajax({

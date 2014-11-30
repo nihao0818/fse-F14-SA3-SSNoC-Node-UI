@@ -223,6 +223,27 @@ function generateDate(){
     return year + '-' + (month < 10 ? '0' + month : month) + '-' + (date < 10 ? '0' + date : date) + ' ' + (hour < 10 ? '0' + hour : hour) + ':' + (minute < 10 ? '0' + minute : minute);
 }
 
+    function userLocation(){
+        //user location gathering
+        var userPosLat;
+        var userPosLong;
+        getLocation();
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+                console.log("MapLocation not found");
+            }
+        }
+        function showPosition(position) {
+            userPosLat = position.coords.latitude;
+            userPosLong = position.coords.longitude;
+
+            socket.emit('emitUserLoc', {name: my_name, userPosLat:userPosLat, userPosLong:userPosLong});
+        }
+    }
+
   socket.on('connect', function () {
     sessionId = socket.socket.sessionid;
     $.ajax({
@@ -240,7 +261,7 @@ function generateDate(){
       renderStatus();
 
       socket.emit('newUser', {id: sessionId, name: name, status:status, statusDate:statusDate});
-
+        userLocation();
     });
   });
 
@@ -255,6 +276,10 @@ function generateDate(){
 
     socket.on('Update', function (data) {
         updateParticipants(data.participants);
+    });
+
+    socket.on('getLocation',function(){
+        userLocation();
     });
 
   socket.on('userDisconnected', function(data) {

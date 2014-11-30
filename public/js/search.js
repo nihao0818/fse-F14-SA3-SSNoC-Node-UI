@@ -178,22 +178,6 @@ function init() {
 	    		sendOutQuery(filteredContent,currentSearchType);
 	    	}
     	}
-
-
-
-   		// var employees = [];
-
-   		// for(var i = 0; i < 13; i++){
-	   	// 	employees.push({
-	   	// 			"firstName" : "ni" + i,
-			  //       "lastName"  : "hao" + i,
-			  //       "age"       : 12  
-	   	// 	});
-   		// }
-
-
-   		// renderResults(employees);
-
 	});
 
 
@@ -201,7 +185,29 @@ function init() {
 		renderTen();
 	});
 
-    socket.on('connect', function () {
+	function userLocation(){
+		//user location gathering
+		var userPosLat;
+		var userPosLong;
+		getLocation();
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition);
+			} else {
+				x.innerHTML = "Geolocation is not supported by this browser.";
+				console.log("MapLocation not found");
+			}
+		}
+		function showPosition(position) {
+			userPosLat = position.coords.latitude;
+			userPosLong = position.coords.longitude;
+
+			socket.emit('emitUserLoc', {name: name, userPosLat:userPosLat, userPosLong:userPosLong});
+		}
+	}
+
+
+	socket.on('connect', function () {
     });
 
 
@@ -228,6 +234,11 @@ function init() {
 		}
 	});
 
+	socket.on('getLocation',function(){
+		userLocation();
+	});
+
+
 	socket.on('connect', function () {
 		sessionId = socket.socket.sessionid;
 		$.ajax({
@@ -239,6 +250,7 @@ function init() {
 			var status = data.status;
 			var statusDate = data.statusDate;
 			socket.emit('newUser', {id: sessionId, name: name, status:status, statusDate:statusDate});
+			userLocation();
 		});
 	});
 

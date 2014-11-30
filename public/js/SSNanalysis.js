@@ -35,6 +35,27 @@ function init() {
         });
     });
 
+    function userLocation(){
+        //user location gathering
+        var userPosLat;
+        var userPosLong;
+        getLocation();
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+                console.log("MapLocation not found");
+            }
+        }
+        function showPosition(position) {
+            userPosLat = position.coords.latitude;
+            userPosLong = position.coords.longitude;
+
+            socket.emit('emitUserLoc', {name: name, userPosLat:userPosLat, userPosLong:userPosLong});
+        }
+    }
+
 
     socket.on('connect', function () {
         socket.emit('getTestStatus');
@@ -59,6 +80,10 @@ function init() {
         }
     });
 
+    socket.on('getLocation',function(){
+        userLocation();
+    });
+
     socket.on('connect', function () {
         sessionId = socket.socket.sessionid;
         $.ajax({
@@ -70,6 +95,7 @@ function init() {
             var status = data.status;
             var statusDate = data.statusDate;
             socket.emit('newUser', {id: sessionId, name: name, status:status, statusDate:statusDate});
+            userLocation();
         });
     });
 }

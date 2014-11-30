@@ -18,6 +18,8 @@ module.exports = function(app, _, io, participants, passport) {
   var search_controller = require('./controllers/search')(_,io,passport,participants);
   var chat_controller = require('./controllers/chatController')(_,io,passport,participants);
 
+  var map_controller = require('./controllers/map')(_,io,passport,participants);
+
   app.get("/", user_controller.getLogin);
 
   app.post("/signup", user_controller.postSignup);
@@ -80,6 +82,9 @@ module.exports = function(app, _, io, participants, passport) {
   app.get("/search", isLoggedIn,search_controller.getSearchPage);
 
   app.post("/search", isLoggedIn,search_controller.sendSearchQuery);
+
+  app.get("/map", isLoggedIn, map_controller.getMap);
+
 
   app.get("/");
 
